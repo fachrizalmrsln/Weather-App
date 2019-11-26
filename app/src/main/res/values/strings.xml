@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="_day">Day</string>
+    <string name="_description">Description</string>
+    <string name="min_temperature">4</string>
+    <string name="current_temperature">16</string>
+    <string name="city">City</string>
+    <string name="o">o</string>
+</resources>
