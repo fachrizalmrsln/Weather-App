@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         todayDate = ConvertDate().getToday()
         currentTime = ConvertDate().getCurrentTime()
 
-        rv_today_main.setOnClickListener {  }
+        rv_today_main.setOnClickListener { }
     }
 
     private fun getWeather() {
@@ -101,8 +101,8 @@ class MainActivity : AppCompatActivity() {
             val onlyTime = ConvertDate().convertTime(data.list[i].dt_txt)
             if (onlyDate != todayDate) {
                 if (currentTime >= onlyTime) {
-                    Log.d("Data", "$onlyDate = $todayDate | $onlyTime = $currentTime")
-                    showingItem.add(data.list[i])
+                    if (currentTime - onlyTime < 2)
+                        showingItem.add(data.list[i])
                 }
             } else {
                 if (currentTime >= onlyTime) {
