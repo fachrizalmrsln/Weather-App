@@ -8,12 +8,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.id.zul.weather.adapter.DailyAdapter
-import com.id.zul.weather.model.City
 import com.id.zul.weather.model.ForecastResponse
 import com.id.zul.weather.model.X
 import com.id.zul.weather.network.WeatherClient
@@ -29,7 +29,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.support.v4.onRefresh
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvDescription: TextView
     private lateinit var ivWeather: ImageView
 
-    private lateinit var llProgress: LinearLayout
-    private lateinit var llContent: LinearLayout
+    private lateinit var progressView: RelativeLayout
+    private lateinit var contentView: LinearLayout
 
     private var todayDate = "Default"
     private var currentTime = 0
@@ -103,11 +103,16 @@ class MainActivity : AppCompatActivity() {
         tvDescription = find(R.id.tv_description_main)
         ivWeather = find(R.id.iv_weather_main)
 
-        llProgress = find(R.id.progress_main)
-        llContent = find(R.id.container_main)
+        progressView = find(R.id.progress_main)
+        contentView = find(R.id.container_main)
 
         todayDate = ConvertDate().getToday()
         currentTime = ConvertDate().getCurrentTime()
+
+        swipe_refresh_main.onRefresh {
+            getWeather()
+            swipe_refresh_main.isRefreshing = false
+        }
 
         rv_today_main.setOnClickListener {
             startActivity<DetailWeather>(
@@ -124,19 +129,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setLoading(){
-        llContent.visibility = View.GONE
-        llProgress.visibility = View.VISIBLE
+    private fun setLoading() {
+        contentView.visibility = View.GONE
+        progressView.visibility = View.VISIBLE
     }
 
-    private fun setContent(){
-        llContent.visibility = View.VISIBLE
-        llProgress.visibility = View.GONE
+    private fun setContent() {
+        contentView.visibility = View.VISIBLE
+        progressView.visibility = View.GONE
     }
 
     private fun getWeather() {
+        setLoading()
         GlobalScope.launch {
-            setLoading()
             val responseCall: Call<ForecastResponse> =
                 WeatherClient.getClient().create(WeatherServices::class.java)
                     .getCityWeather(
@@ -150,7 +155,6 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     response.body()?.let {
                         validateData(it)
-                        setContent()
                     }
                 }
 
@@ -161,7 +165,6 @@ class MainActivity : AppCompatActivity() {
                     Log.d("fail", t.message.toString())
                 }
             })
-
         }
     }
 
@@ -190,6 +193,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        setContent()
         setToday()
         setRecyclerView(showingItem)
     }
