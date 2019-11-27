@@ -10,6 +10,7 @@ class ConvertDate {
     private val fullFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val timeFormat = SimpleDateFormat("HH", Locale.getDefault())
+    private val dateMonthFormat = SimpleDateFormat("MMMM dd", Locale.getDefault())
 
     fun convertWithoutToday(data: String): String {
         val date = fullFormat.parse(data)
@@ -25,10 +26,19 @@ class ConvertDate {
             expectedFormat.format(date)
     }
 
+    fun convertDate(data: String): String{
+        val date = fullFormat.parse(data)
+        return dateFormat.format(date)
+    }
+
     fun convertToday(): String {
         val date = dateFormat.parse(getToday())
-        val expectedFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
-        return "Today, " + expectedFormat.format(date)
+        return "Today, " + dateMonthFormat.format(date)
+    }
+
+    fun convertDateMonth(data: String): String{
+        val  date = dateFormat.parse(data)
+        return dateMonthFormat.format(date)
     }
 
     fun convertTime(data: String): Int {

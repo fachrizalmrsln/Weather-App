@@ -1,9 +1,17 @@
 <resources>
-    <string name="app_name">Weather</string>
+    <string name="app_name">Sunshine</string>
     <string name="_day">Day</string>
     <string name="_description">Description</string>
     <string name="min_temperature">4</string>
     <string name="current_temperature">16</string>
     <string name="city">City</string>
     <string name="o">o</string>
+    <string name="humidity">Humidity :</string>
+    <string name="pressure">Pressure :</string>
+    <string name="wind">Wind :</string>
+    <string name="location">Location :</string>
+    <string name="_3">3</string>
+    <string name="detail">Detail</string>
+    <string name="share">Share</string>
+    <string name="settings">Settings</string>
 </resources>
