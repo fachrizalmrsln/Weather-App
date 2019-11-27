@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
             val responseCall: Call<ForecastResponse> =
                 WeatherClient.getClient().create(WeatherServices::class.java)
                     .getCityWeather(
-                        "London",
+                        "Bandung",
                         Network.API_KEY
                     )
             responseCall.enqueue(object : Callback<ForecastResponse?> {
