@@ -14,4 +14,7 @@
     <string name="detail">Detail</string>
     <string name="share">Share</string>
     <string name="settings">Settings</string>
+    <string name="doing_some_magic">The app just doing some magic</string>
+    <string name="just_a_second">Just a second . . .</string>
+    <string name="or_it_is_just_your_internet_connection">Or it is just your internet connection?</string>
 </resources>

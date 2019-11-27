@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -21,6 +23,8 @@ import com.id.zul.weather.utils.ConvertTemp
 import com.id.zul.weather.utils.Network
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_main_content.*
+import kotlinx.android.synthetic.main.layout_today_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jetbrains.anko.find
@@ -43,6 +47,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvCity: TextView
     private lateinit var tvDescription: TextView
     private lateinit var ivWeather: ImageView
+
+    private lateinit var llProgress: LinearLayout
+    private lateinit var llContent: LinearLayout
 
     private var todayDate = "Default"
     private var currentTime = 0
@@ -96,6 +103,9 @@ class MainActivity : AppCompatActivity() {
         tvDescription = find(R.id.tv_description_main)
         ivWeather = find(R.id.iv_weather_main)
 
+        llProgress = find(R.id.progress_main)
+        llContent = find(R.id.container_main)
+
         todayDate = ConvertDate().getToday()
         currentTime = ConvertDate().getCurrentTime()
 
@@ -114,8 +124,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setLoading(){
+        llContent.visibility = View.GONE
+        llProgress.visibility = View.VISIBLE
+    }
+
+    private fun setContent(){
+        llContent.visibility = View.VISIBLE
+        llProgress.visibility = View.GONE
+    }
+
     private fun getWeather() {
         GlobalScope.launch {
+            setLoading()
             val responseCall: Call<ForecastResponse> =
                 WeatherClient.getClient().create(WeatherServices::class.java)
                     .getCityWeather(
@@ -129,6 +150,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     response.body()?.let {
                         validateData(it)
+                        setContent()
                     }
                 }
 

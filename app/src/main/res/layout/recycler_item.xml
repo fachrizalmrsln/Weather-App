@@ -3,14 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rv_container_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    tools:ignore="UnusedAttribute">
 
     <ImageView
         android:id="@+id/iv_weather"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:scaleType="centerCrop"
         android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background"
         tools:ignore="ContentDescription" />
 
@@ -70,11 +74,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/o"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
                 android:layout_toRightOf="@id/tv_current_temperature"
+                android:text="@string/o"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 tools:ignore="ContentDescription,RtlHardcoded" />
 
         </RelativeLayout>
@@ -88,17 +92,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/min_temperature"
-                android:textSize="20sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/o"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="@android:color/black"
                 android:layout_toRightOf="@id/tv_min_temperature"
+                android:text="@string/o"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
                 tools:ignore="ContentDescription,RtlHardcoded" />
 
         </RelativeLayout>
@@ -107,8 +111,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_below="@id/iv_weather"
         android:layout_height="0.7dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_below="@id/iv_weather"
+        android:background="@android:color/darker_gray" />
 
 </RelativeLayout>
