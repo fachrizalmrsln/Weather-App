@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.id.zul.weather.DetailWeather
+import com.id.zul.weather.ui.DetailWeather
 import com.id.zul.weather.R
 import com.id.zul.weather.model.X
 import com.id.zul.weather.utils.ConvertDateTime

@@ -1,9 +1,10 @@
-package com.id.zul.weather
+package com.id.zul.weather.ui
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.id.zul.weather.R
 import org.jetbrains.anko.find
 
 class SettingsActivity : AppCompatActivity() {

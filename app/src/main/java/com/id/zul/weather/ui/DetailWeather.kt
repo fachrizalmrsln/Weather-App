@@ -1,4 +1,4 @@
-package com.id.zul.weather
+package com.id.zul.weather.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.id.zul.weather.R
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.find

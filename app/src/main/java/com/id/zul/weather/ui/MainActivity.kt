@@ -1,4 +1,4 @@
-package com.id.zul.weather
+package com.id.zul.weather.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.id.zul.weather.R
 import com.id.zul.weather.adapter.DailyAdapter
 import com.id.zul.weather.model.ForecastResponse
 import com.id.zul.weather.model.X
