@@ -1,6 +1,7 @@
 package com.id.zul.weather
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class DetailWeather : AppCompatActivity() {
@@ -61,7 +63,13 @@ class DetailWeather : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_share -> {
+                val intent = Intent()
+                intent.action = Intent.ACTION_SEND
+                intent.type = "Test"
+                intent.putExtra(Intent.EXTRA_TEXT, "Digital Oasis")
+                intent.type = "text/plan"
 
+                startActivity(Intent.createChooser(intent,"Share to : "))
             }
             R.id.menu_settings -> {
             }
@@ -131,7 +139,6 @@ class DetailWeather : AppCompatActivity() {
                 .load(dataImageWeather)
                 .into(ivWeather)
         }
-
     }
 
     private fun circularWind() {
