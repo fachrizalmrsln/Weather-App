@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
     <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_22">22sp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
+    <dimen name="text_size_26">26sp</dimen>
+    <dimen name="text_size_28">28sp</dimen>
+    <dimen name="text_size_46">46sp</dimen>
+    <dimen name="text_size_36">36sp</dimen>
+    <dimen name="text_size_70">70sp</dimen>
+    <dimen name="text_size_120">120sp</dimen>
+
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_6">6dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_14">14dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_110">110dp</dimen>
+
+    <dimen name="size_07">0.7dp</dimen>
+    <dimen name="size_6">6dp</dimen>
+    <dimen name="size_60">60dp</dimen>
+    <dimen name="size_100">100dp</dimen>
+    <dimen name="size_120">120dp</dimen>
+    <dimen name="size_200">200dp</dimen>
+
+    <dimen name="padding_8">8dp</dimen>
+
 </resources>

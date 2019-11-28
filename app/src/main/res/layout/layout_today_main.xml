@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rv_today_main"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="@dimen/size_200"
     android:background="@color/colorPrimary"
     android:clickable="true"
     android:focusable="true"
@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="@dimen/margin_110"
         android:gravity="center_vertical"
         android:orientation="vertical"
         tools:ignore="RtlCompat,UselessParent">
@@ -25,12 +25,12 @@
             android:layout_height="wrap_content"
             android:text="@string/_day"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="@dimen/text_size_18" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="@dimen/margin_20"
             android:gravity="center"
             android:orientation="horizontal"
             tools:ignore="RelativeOverlap,RtlCompat">
@@ -45,17 +45,17 @@
                     android:layout_height="wrap_content"
                     android:text="@string/current_temperature"
                     android:textColor="@android:color/white"
-                    android:textSize="70sp"
+                    android:textSize="@dimen/text_size_70"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="@dimen/margin_6"
                     android:layout_toRightOf="@id/tv_current_temperature_main"
                     android:text="@string/o"
                     android:textColor="@android:color/white"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/text_size_24"
                     android:textStyle="bold"
                     tools:ignore="ContentDescription,RtlHardcoded" />
 
@@ -73,16 +73,16 @@
                     android:gravity="bottom"
                     android:text="@string/min_temperature"
                     android:textColor="@android:color/white"
-                    android:textSize="28sp" />
+                    android:textSize="@dimen/text_size_28" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_min_temperature_main"
-                    android:paddingBottom="8dp"
+                    android:paddingBottom="@dimen/padding_8"
                     android:text="@string/o"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_size_14"
                     android:textStyle="bold"
                     tools:ignore="ContentDescription,RtlHardcoded" />
 
@@ -94,10 +94,10 @@
             android:id="@+id/tv_city_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_10"
             android:text="@string/city"
             android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:textSize="@dimen/text_size_24" />
 
     </LinearLayout>
 
@@ -105,16 +105,16 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="@dimen/margin_20"
         android:gravity="center"
         android:orientation="vertical"
         tools:ignore="RelativeOverlap,RtlCompat,UseCompoundDrawables,UselessParent">
 
         <ImageView
             android:id="@+id/iv_weather_main"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="@dimen/size_100"
+            android:layout_height="@dimen/size_100"
+            android:layout_marginTop="@dimen/margin_10"
             android:src="@drawable/ic_launcher_background"
             tools:ignore="ContentDescription" />
 
@@ -124,7 +124,7 @@
             android:layout_height="wrap_content"
             android:text="@string/_day"
             android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:textSize="@dimen/text_size_24" />
 
     </LinearLayout>
 

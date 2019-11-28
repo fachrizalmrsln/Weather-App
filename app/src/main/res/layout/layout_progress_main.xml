@@ -24,7 +24,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/just_a_second"
             android:textColor="@color/colorAccent"
-            android:textSize="24sp"
+            android:textSize="@dimen/text_size_24"
             android:textStyle="bold" />
 
         <TextView
@@ -33,17 +33,17 @@
             android:layout_gravity="start"
             android:text="@string/doing_some_magic"
             android:textColor="@color/colorAccent"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_14"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/margin_20"
             android:text="@string/or_it_is_just_your_internet_connection"
             android:textColor="@color/colorAccent"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_size_12" />
 
     </LinearLayout>
 
