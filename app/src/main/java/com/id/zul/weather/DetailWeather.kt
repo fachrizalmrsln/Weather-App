@@ -72,6 +72,7 @@ class DetailWeather : AppCompatActivity() {
                 startActivity(Intent.createChooser(intent,"Share to : "))
             }
             R.id.menu_settings -> {
+                startActivity<SettingsActivity>()
             }
         }
         return super.onOptionsItemSelected(item)

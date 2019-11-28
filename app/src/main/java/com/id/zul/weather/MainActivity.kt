@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_settings -> {
+                startActivity<SettingsActivity>()
             }
         }
         return super.onOptionsItemSelected(item)

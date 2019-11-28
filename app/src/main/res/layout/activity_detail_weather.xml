@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".DetailWeather">
 
-    <include layout="@layout/layout_toolbar_detail" />
+    <include layout="@layout/layout_toolbar_secondary" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
