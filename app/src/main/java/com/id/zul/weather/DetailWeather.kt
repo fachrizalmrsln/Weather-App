@@ -2,12 +2,12 @@ package com.id.zul.weather
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.squareup.picasso.Picasso
@@ -63,13 +63,7 @@ class DetailWeather : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_share -> {
-                val intent = Intent()
-                intent.action = Intent.ACTION_SEND
-                intent.type = "Test"
-                intent.putExtra(Intent.EXTRA_TEXT, "Digital Oasis")
-                intent.type = "text/plan"
-
-                startActivity(Intent.createChooser(intent,"Share to : "))
+                shareAction()
             }
             R.id.menu_settings -> {
                 startActivity<SettingsActivity>()
@@ -79,8 +73,8 @@ class DetailWeather : AppCompatActivity() {
     }
 
     private fun initializeToolbar() {
-        toolbar = find(R.id.toolbar_detail)
-        tvToolbar = find(R.id.tv_title_toolbar_detail)
+        toolbar = find(R.id.toolbar_secondary)
+        tvToolbar = find(R.id.tv_title_toolbar_secondary)
         setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -149,4 +143,14 @@ class DetailWeather : AppCompatActivity() {
             startAngle = 40f
         }
     }
+
+    private fun shareAction() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "Test"
+        intent.putExtra(Intent.EXTRA_TEXT, "Digital Oasis")
+        intent.type = "text/plan"
+        startActivity(Intent.createChooser(intent, "Share to : "))
+    }
+
 }

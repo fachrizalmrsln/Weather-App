@@ -2,7 +2,6 @@ package com.id.zul.weather
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,7 +17,8 @@ import com.id.zul.weather.model.ForecastResponse
 import com.id.zul.weather.model.X
 import com.id.zul.weather.network.WeatherClient
 import com.id.zul.weather.network.WeatherServices
-import com.id.zul.weather.utils.ConvertDate
+import com.id.zul.weather.utils.ConvertDateTime
+import com.id.zul.weather.utils.ConvertDecimal
 import com.id.zul.weather.utils.ConvertTemp
 import com.id.zul.weather.utils.Network
 import com.squareup.picasso.Picasso
@@ -30,11 +30,10 @@ import kotlinx.coroutines.launch
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.DecimalFormat
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,25 +50,27 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressView: RelativeLayout
     private lateinit var contentView: LinearLayout
 
+    private val queryCity = "Bandung"
+
     private var todayDate = "Default"
     private var currentTime = 0
 
-    private var cityName = "Default"
-    private var countyCode = "Default"
-    private var currentTemp = "Default"
-    private var minTemp = "Default"
-    private var description = "Default"
-    private var humidity = "Default"
-    private var pressure = "Default"
-    private var wind = "Default"
-    private var icon = "Default"
+    private var dataCityName = "Default"
+    private var dataCountyCode = "Default"
+    private var dataCurrentTemp = "Default"
+    private var dataMinTemp = "Default"
+    private var dataDescription = "Default"
+    private var dataHumidity = "Default"
+    private var dataPressure = "Default"
+    private var dataWind = "Default"
+    private var dataIcon = "Default"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         initializeToolbar()
         initializeViews()
+        setLoading()
         getWeather()
     }
 
@@ -92,7 +93,6 @@ class MainActivity : AppCompatActivity() {
         toolbar = find(R.id.toolbar)
         tvToolbar = find(R.id.tv_title_toolbar)
         setSupportActionBar(toolbar)
-
         tvToolbar.text = resources.getString(R.string.app_name)
     }
 
@@ -107,25 +107,24 @@ class MainActivity : AppCompatActivity() {
         progressView = find(R.id.progress_main)
         contentView = find(R.id.container_main)
 
-        todayDate = ConvertDate().getToday()
-        currentTime = ConvertDate().getCurrentTime()
+        todayDate = ConvertDateTime().getToday()
+        currentTime = ConvertDateTime().getCurrentTime()
 
         swipe_refresh_main.onRefresh {
             getWeather()
-            swipe_refresh_main.isRefreshing = false
         }
 
         rv_today_main.setOnClickListener {
             startActivity<DetailWeather>(
-                "data_date" to ConvertDate().convertToday(),
-                "data_location" to cityName,
-                "data_description" to description,
-                "data_current_temp" to currentTemp,
-                "data_min_temp" to minTemp,
-                "data_humidity" to humidity,
-                "data_pressure" to pressure,
-                "data_wind" to wind,
-                "data_image" to icon
+                "data_date" to ConvertDateTime().convertToday(),
+                "data_location" to dataCityName,
+                "data_description" to dataDescription,
+                "data_current_temp" to dataCurrentTemp,
+                "data_min_temp" to dataMinTemp,
+                "data_humidity" to dataHumidity,
+                "data_pressure" to dataPressure,
+                "data_wind" to dataWind,
+                "data_image" to dataIcon
             )
         }
     }
@@ -138,15 +137,15 @@ class MainActivity : AppCompatActivity() {
     private fun setContent() {
         contentView.visibility = View.VISIBLE
         progressView.visibility = View.GONE
+        swipe_refresh_main.isRefreshing = false
     }
 
     private fun getWeather() {
-        setLoading()
         GlobalScope.launch {
             val responseCall: Call<ForecastResponse> =
                 WeatherClient.getClient().create(WeatherServices::class.java)
                     .getCityWeather(
-                        "Bandung",
+                        queryCity,
                         Network.API_KEY
                     )
             responseCall.enqueue(object : Callback<ForecastResponse?> {
@@ -163,7 +162,8 @@ class MainActivity : AppCompatActivity() {
                     call: Call<ForecastResponse?>,
                     t: Throwable
                 ) {
-                    Log.d("fail", t.message.toString())
+                    toast("Request Timeout")
+                    swipe_refresh_main.isRefreshing = false
                 }
             })
         }
@@ -171,11 +171,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun validateData(data: ForecastResponse) {
         val showingItem = ArrayList<X>()
-        cityName = data.city.name
-        countyCode = data.city.country
+        dataCityName = data.city.name
+        dataCountyCode = data.city.country
         for (i in data.list.indices) {
             val onlyDate = data.list[i].dt_txt.removeRange(10, 19)
-            val onlyTime = ConvertDate().convertTime(data.list[i].dt_txt)
+            val onlyTime = ConvertDateTime().convertTime(data.list[i].dt_txt)
             if (onlyDate != todayDate) {
                 if (currentTime >= onlyTime) {
                     if (currentTime - onlyTime < 3)
@@ -183,33 +183,32 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 if (currentTime >= onlyTime) {
-                    currentTemp = ConvertTemp().kelvinToCelsius(data.list[i].main.temp).toString()
-                    minTemp = ConvertTemp().kelvinToCelsius(data.list[i].main.temp_min).toString()
-                    description = data.list[i].weather[0].main
-                    humidity = DecimalFormat("#").format(data.list[i].main.humidity).toString()
-                    pressure = DecimalFormat("#").format(data.list[i].main.pressure).toString()
-                    wind = DecimalFormat("#").format(data.list[i].wind.speed).toString()
-                    icon =
-                        "http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png"
+                    dataCurrentTemp = ConvertTemp().kelvinToCelsius(data.list[i].main.temp)
+                    dataMinTemp = ConvertTemp().kelvinToCelsius(data.list[i].main.temp_min)
+                    dataDescription = data.list[i].weather[0].main
+                    dataHumidity = ConvertDecimal().removeDecimal(data.list[i].main.humidity)
+                    dataPressure = ConvertDecimal().removeDecimal(data.list[i].main.pressure)
+                    dataWind = ConvertDecimal().removeDecimal(data.list[i].wind.speed.toInt())
+                    dataIcon = Network.IMAGE_URL + data.list[i].weather[0].icon + ".png"
                 }
             }
         }
-        setContent()
         setToday()
         setRecyclerView(showingItem)
+        setContent()
     }
 
     @SuppressLint("SetTextI18n")
     private fun setToday() {
-        tvDay.text = ConvertDate().convertToday()
-        tvCity.text = "$cityName, $countyCode"
-        tvDescription.text = description
-        tvCurrentTemp.text = currentTemp
-        tvMinTemp.text = minTemp
+        tvDay.text = ConvertDateTime().convertToday()
+        tvCity.text = "$dataCityName, $dataCountyCode"
+        tvDescription.text = dataDescription
+        tvCurrentTemp.text = dataCurrentTemp
+        tvMinTemp.text = dataMinTemp
         this.let {
             Picasso
                 .get()
-                .load(icon)
+                .load(dataIcon)
                 .into(ivWeather)
         }
 
@@ -221,7 +220,7 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager.VERTICAL, false
         )
         recycler_main.setHasFixedSize(true)
-        recycler_main.adapter = DailyAdapter(data, cityName)
+        recycler_main.adapter = DailyAdapter(data, dataCityName)
     }
 
 }

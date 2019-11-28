@@ -25,9 +25,9 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:layout_marginEnd="14dp"
                     android:src="@drawable/app_icon"
-                    tools:ignore="ContentDescription,RtlCompat"
-                    android:layout_marginEnd="14dp"/>
+                    tools:ignore="ContentDescription,RtlCompat" />
 
                 <TextView
                     android:id="@+id/tv_title_toolbar"

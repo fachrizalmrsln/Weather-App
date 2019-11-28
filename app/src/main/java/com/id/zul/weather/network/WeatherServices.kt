@@ -6,11 +6,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherServices {
-
     @GET("forecast/")
     fun getCityWeather(
         @Query("q") city: String,
-        @Query("appid") Network: String
+        @Query("appid") api_key: String
     ): Call<ForecastResponse>
-
 }

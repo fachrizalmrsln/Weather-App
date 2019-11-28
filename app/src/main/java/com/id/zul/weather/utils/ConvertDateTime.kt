@@ -1,11 +1,10 @@
 package com.id.zul.weather.utils
 
-import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class ConvertDate {
+class ConvertDateTime {
 
     private val fullFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -26,18 +25,13 @@ class ConvertDate {
             expectedFormat.format(date)
     }
 
-    fun convertDate(data: String): String{
-        val date = fullFormat.parse(data)
-        return dateFormat.format(date)
-    }
-
     fun convertToday(): String {
         val date = dateFormat.parse(getToday())
         return "Today, " + dateMonthFormat.format(date)
     }
 
-    fun convertDateMonth(data: String): String{
-        val  date = dateFormat.parse(data)
+    fun convertDateMonth(data: String): String {
+        val date = dateFormat.parse(data)
         return dateMonthFormat.format(date)
     }
 
@@ -55,7 +49,7 @@ class ConvertDate {
         return currentTime.toInt()
     }
 
-    private fun getInstanceToday(): Date{
+    private fun getInstanceToday(): Date {
         val calendar = Calendar.getInstance()
         return calendar.time
     }
